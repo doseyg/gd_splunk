@@ -30,8 +30,8 @@ class mispSearchEventsCommand(StreamingCommand):
 		misp_id = "false"
 		tags = "false"
 		allowNonIDS = "false"
-		matching_events = ""
-		misp_info = ""
+		matching_events = []
+		misp_info = []
 		## Start code
 		#logger("Downloading indicators from MISP for type: %s" % indicator)
 		MISP_URI = 'http://' + MISP_HOST + '/events/restSearch/'
@@ -47,8 +47,8 @@ class mispSearchEventsCommand(StreamingCommand):
 		#print("DEBUG: " + str(events))
 		for event in events["response"]:
 			#print(event["Event"]["id"])
-			matching_events = matching_events + event["Event"]["id"] + " "
-			misp_info = misp_info + event["Event"]["info"] + " "
+			matching_events.append(event["Event"]["id"])
+			misp_info.append(event["Event"]["info"])
 		return(matching_events,misp_info)
 
 	
@@ -63,8 +63,8 @@ class mispSearchEventsCommand(StreamingCommand):
 		# For each event/record in splunk
 		for record in records:
 			#print("DEBUG " + record)
-			record['misp_events'] = ""
-			record['misp_info'] = ""
+			record['misp_events'] = []
+			record['misp_info'] = []
 			fields = record.items()
 			for field in fields:
 				field_name = field[0]
@@ -81,8 +81,8 @@ class mispSearchEventsCommand(StreamingCommand):
 							misp_cache[field_value] = results
 						#print("DEBUG: " + str(results))
 						## Concatenate the results together, as there may be several matching events in MISP
-						record['misp_events'] = record['misp_events'] + " " + results[0]
-						record['misp_info'] = record['misp_info'] + " " + results[1]
+						record['misp_events'].extend(results[0])
+						record['misp_info'].extend(results[1])
 			yield record
 		return
 
