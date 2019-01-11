@@ -49,7 +49,11 @@ class mispSearchEventsCommand(StreamingCommand):
 			#print(event["Event"]["id"])
 			matching_events.append(event["Event"]["id"])
 			misp_info.append(event["Event"]["info"])
-		return(matching_events,misp_info)
+			if ‘Tag’ in event.keys():
+				for tag in event[‘Tag’]:
+					if tag[‘name’].startswith(‘misp-galaxy:threat-actor’):
+						misp_threat_actor.append(tag[‘name’])
+		return(matching_events,misp_info,misp_threat_actor)
 
 	
 	
@@ -83,6 +87,7 @@ class mispSearchEventsCommand(StreamingCommand):
 						## Concatenate the results together, as there may be several matching events in MISP
 						record['misp_events'].extend(results[0])
 						record['misp_info'].extend(results[1])
+						record['misp_threat_actor'].extend(results[2])
 			yield record
 		return
 
