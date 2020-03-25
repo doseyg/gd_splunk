@@ -9,19 +9,19 @@ Restart Splunk.
 
 ## Usage
 An example splunk query would be:
-index=weblogs | whois lookupfield=source_ip 
+`index=weblogs | whois lookupfield=source_ip `
 The data in the soure_ip field will be submitted to whois and the resulting values will be placed in fields name source_ip_whois_<something>
 Typical added fields are:
--whois_domain_name
--whois_name
--whois_org
--whois_registrar
--whois_updated_date
--whois_creation_date
--whois_emails
--whois_address
--whois_city
--whois_country
+- whois_domain_name
+- whois_name
+- whois_org
+- whois_registrar
+- whois_updated_date
+- whois_creation_date
+- whois_emails
+- whois_address
+- whois_city
+- whois_country
 
 ## Use your own API
 Alternatively, you can easily use this Splunk app with the web api of your own whois lookup tools. Change the syntax of the query in bin/whois.py
