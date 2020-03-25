@@ -4,7 +4,7 @@ Please ensure they caching-whois-proxy is working before trying to implement thi
 ## Installation
 These instructions work for a single node Splunk instance. If clustered and using a deplyment server, refer to Splunk docs or your friendly local Splunk admin.
 1. Copy the contents of this whois folder into a folder named whois under the $SPLUNK_HOME/etc/apps/ folder. 
-2. Copy the splunklib folder from the Splunk Python SDK into the $SPLUNK_HOME/etc/apps/whois/bin folder
+2. Copy the splunklib folder from the Splunk Python SDK at https://github.com/splunk/splunk-sdk-python/tree/master/splunklib into the $SPLUNK_HOME/etc/apps/whois/bin folder
 3. Restart Splunk.
 
 ## Usage
