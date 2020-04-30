@@ -1,0 +1,8 @@
+index="remote_access" 
+`comment("This alert detects remote access connections from new networks not previously seen based on Whois network owner information")`
+| fields subnet 
+| dedup subnet 
+| whois lookupfield=subnet 
+| dedup whois 
+| search NOT [inputlookup baseline_remote_access_whois.csv | table whois_org] 
+| outputlookup append=true create_empty=true output_format=splunk_sv_csv baseline_remote_access_whois.csv
