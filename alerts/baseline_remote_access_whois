@@ -1,5 +1,5 @@
 index="remote_access" 
-`comment("This alert detects remote access connections from new networks not previously seen based on Whois network owner information")`
+`comment("This alert detects remote access connections from new networks not previously seen based on Whois network owner information. Category:Anomalous")`
 | fields subnet 
 | dedup subnet 
 | whois lookupfield=subnet 
