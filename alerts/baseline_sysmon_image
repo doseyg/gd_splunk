@@ -1,5 +1,7 @@
 index=sysmon
 `comment("This alert detect new system processes which have not been seen before. Category:Anomalous ")`
+| rex field=Image "(?P<Image>[^\\\]+)$"
 | eval image=lower(Image)
+| fields image
 | NOT [inputlookup baseline_sysmon_image.csv | table image] 
 | outputlookup append=true create_empty=true output_format=splunk_sv_csv baseline_sysmon_image.csv
