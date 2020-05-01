@@ -1,0 +1,5 @@
+index=sysmon Product="*" 
+`comment("This alert detects new system Products which have not been seen before. Category:Anomalous ")`
+| fields Product | dedup Product | table Product
+| search NOT [inputlookup baseline_sysmon_product.csv | table Product ]
+| outputlookup appen=true create_empty=true output_format=splunk_sc_csv baseline_sysmon_product.csv
